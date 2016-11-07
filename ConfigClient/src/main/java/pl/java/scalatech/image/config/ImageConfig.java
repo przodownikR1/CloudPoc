@@ -19,9 +19,12 @@ import org.springframework.context.annotation.Configuration;
 import com.google.common.collect.Maps;
 import com.netflix.discovery.converters.Auto;
 
+import javaslang.control.Option;
+import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.image.Image;
 import pl.java.scalatech.image.repo.ImageRepository;
+import pl.java.scalatech.user.domain.User;
 import pl.java.scalatech.user.repo.UserRepo;
 
 @Configuration
@@ -101,4 +104,5 @@ public class ImageConfig {
         return factory.createMultipartConfig();
     }
 
+  
 }

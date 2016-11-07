@@ -1,0 +1,6 @@
+gc.log.0.current
+app.log
+gradle
+gradlew
+gradlew.bat
+*.log
