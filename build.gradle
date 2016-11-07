@@ -1,0 +1,125 @@
+buildscript {
+    ext {
+        javaVersion = 1.8
+        springBootVersion = '1.4.1.RELEASE'
+        springCloudVersion = 'Camden.SR1'
+    }
+
+    ext['lombok.version'] = '1.16.10'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+  dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE"
+	}
+    
+}
+
+allprojects {
+group = 'pl.java.scalatech'
+version = '0.1'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'spring-boot'
+
+sourceSets {
+ integrationTest {
+    java.srcDir file('src/integTest/java')
+    resources.srcDir file('src/integTest/resources')
+    compileClasspath = sourceSets.main.output + configurations.testRuntime
+    runtimeClasspath = output + compileClasspath
+  }
+ }
+}
+
+
+
+configure(subprojects) {
+   
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: 'application'       
+    apply plugin: 'jacoco'
+
+    startScripts.enabled = false
+    distZip.enabled = false
+    distTar.enabled = false
+
+    sourceCompatibility = "${javaVersion}"
+    targetCompatibility = "${javaVersion}"
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+
+test {
+    logging.captureStandardOutput(LogLevel.INFO)
+    jvmArgs = ['-Dspring.profiles.active=test']
+    minHeapSize = '128m'    
+    jvmArgs '-XX:MaxMetaSpace=128m'
+    maxHeapSize = "1024m"
+    jacoco {
+      append = false
+      destinationFile = file("$buildDir/jacoco.exec")
+  }
+  testLogging {
+     events 'started', 'passed', 'skipped', 'failed'
+  }
+  forkEvery = 5
+  maxParallelForks = Runtime.runtime.availableProcessors() / 2
+}
+
+configurations.archives.artifacts.removeAll { it.archiveTask.is(distZip) || it.archiveTask.is(distTar) }
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "$buildDir/reports/jacoco/html"
+    }
+		classDirectories = files('build/classes/')
+}
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+
+task integrationTest(type: Test) {
+  testClassesDir = sourceSets.integrationTest.output.classesDir
+  classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+project.tasks.findAll { it.name.contains('Zip') }.each { task ->
+  logger.info("Removing ${task}")
+  project.tasks.remove(task)
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
+   
+}
+
+

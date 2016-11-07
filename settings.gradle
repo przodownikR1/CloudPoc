@@ -1,0 +1,12 @@
+include ":ConfigServer",
+        ":EurekaPoint",
+        ":ConfigClient",
+	":ConfigClient2",
+        ":EurekaClient",
+        ":EurekaClient2",
+        ":zuul",
+        ":generatorDanych",
+        ":DashboardHystrix"
+           
+
+rootProject.name = 'cloudPoc'

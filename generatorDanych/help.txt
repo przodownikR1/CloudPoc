@@ -1,0 +1,96 @@
+file://Inbox/simple?move=processed
+
+
+Exchange.FILE_NAME
+Configuration
+@Slf4j
+public class CxfConfig {
+    @Bean
+    public ServletRegistrationBean soapServletRegistrationBean() {
+        ServletRegistrationBean registration = new ServletRegistrationBean(new CXFServlet(), "/soap/*");
+        registration.setName("CXFServlet");
+        return registration;
+    }
+
+    @Bean(name = "cxf", destroyMethod = "shutdown")
+    public SpringBus configureCxfBus() {
+        final SpringBus bus = new SpringBus();
+        List<Feature> features = new ArrayList<>();
+        features.add(loggingFeature());
+        bus.setFeatures(features);
+        bus.setId("cxf");        
+        return bus;
+}
+    
+      private LoggingFeature loggingFeature() {
+        LoggingFeature loggingFeature = new LoggingFeature();       
+        loggingFeature.setPrettyLogging(true);
+        return loggingFeature;
+    }
+
+}
+
+@Configuration
+public class CxfWebServiceClientConfig {
+
+	@Bean
+	public JaxWsProxyFactoryBean jaxWsProxyFactoryBean() {
+        JaxWsProxyFactoryBean jaxWsProxyFactory = new JaxWsProxyFactoryBean();
+        jaxWsProxyFactory.setServiceClass(CurrencyService.class);
+        jaxWsProxyFactory.setAddress("http://localhost:5555/soap/slawek");
+        return jaxWsProxyFactory;
+	}
+	
+	@Bean(name="client")
+	public CurrencyService currencyWsClient() {
+		return (CurrencyService)jaxWsProxyFactoryBean().create();
+	}
+
+}
+@Data
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Pozycja {
+    @XmlElement
+    private String nazwa_waluty;
+    @XmlElement
+    private String przelicznik;
+    @XmlElement
+    private String kod_waluty;
+    @XmlElement
+    private String kurs_sredni;
+
+}
+
+@Data
+@XmlRootElement(name = "tabela_kursow")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Tabela_kursow {
+    @XmlAttribute
+    private String typ;
+    @XmlAttribute
+    private String uid;
+
+    @XmlElement
+    private String numer_tabeli;
+
+    @XmlElement
+    private Date data_publikacji;
+
+    @XmlElement(name = "pozycja")
+    private List<Pozycja> pozycje = Lists.newArrayList();
+
+    public String getTyp() {
+        return typ;
+    }
+
+}
+public class RecipientListBean {
+	private  List<String> uris;
+	public RecipientListBean(String... uris) {
+		this.uris = Arrays.asList(uris);
+	}
+    @Handler
+	public List<String> route(Exchange exchange) {
+		return uris;
+	}
+}

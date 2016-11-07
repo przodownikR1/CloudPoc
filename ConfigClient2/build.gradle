@@ -1,0 +1,32 @@
+
+jar {
+	baseName = 'clientConfig2'
+	version = '0.0.1-SNAPSHOT'
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.projectlombok:lombok')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    compile("org.springframework.cloud:spring-cloud-starter-bus-amqp")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+bootRun {
+    jvmArgs = ["-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10002","-Xms256m","-Xmx256m"]
+    jvmArgs = ["-Dspring.profiles.active=dev"]
+    //jvmArgs = ['-Dserver.port=9001']
+    addResources = true
+    if ( project.hasProperty('jvmArgs') ) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
+    
+}
+
+

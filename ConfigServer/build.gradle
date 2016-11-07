@@ -1,0 +1,31 @@
+jar {
+	baseName = 'configServer'
+	version = '0.0.1-SNAPSHOT'
+}
+
+
+bootRun {
+    jvmArgs = ["-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10011","-Xms256m","-Xmx256m"]
+    jvmArgs = ["-Dspring.profiles.active=dev"]
+    //jvmArgs = ['-Dserver.port=9001']
+    addResources = true
+    if ( project.hasProperty('jvmArgs') ) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
+    
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+	compile('org.springframework.cloud:spring-cloud-config-server')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-devtools')
+	compile('org.projectlombok:lombok')
+	compile('org.springframework.retry:spring-retry')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
