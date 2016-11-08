@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import pl.java.scalatech.entity.Person;
 import pl.java.scalatech.generator.CarGenerator;
@@ -14,6 +15,7 @@ import pl.java.scalatech.repository.CarRepo;
 import pl.java.scalatech.repository.PersonRepo;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 public class SampleResourceApplication implements CommandLineRunner{
     
     @Autowired

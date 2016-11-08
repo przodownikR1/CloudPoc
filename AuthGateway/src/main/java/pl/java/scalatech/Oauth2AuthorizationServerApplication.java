@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import pl.java.scalatech.collerationToken.filter.CorrelationIdFilter;
@@ -16,7 +17,7 @@ import pl.java.scalatech.repository.CarRepo;
 import pl.java.scalatech.repository.PersonRepo;
 
 @SpringBootApplication
-
+@EnableDiscoveryClient
 public class Oauth2AuthorizationServerApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
