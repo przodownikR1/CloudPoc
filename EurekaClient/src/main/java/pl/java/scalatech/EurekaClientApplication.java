@@ -1,8 +1,12 @@
 package pl.java.scalatech;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -32,11 +36,28 @@ public class EurekaClientApplication {
 
     @Bean
     CommandLineRunner dc(DiscoveryClient dc) {
-        dc.getServices().stream().forEach(t->log.info("!!!!!!!!!!!!  {}",t));
+        dc.getServices().stream().forEach(t -> log.info("!!!!!!!!!!!!  {}", t));
         return args -> dc.getInstances("simple-app")
                 .forEach(si -> System.out.println(String.format("!!!   %s %s:%s", si.getServiceId(), si.getHost(), si.getPort())));
     }
-    
-    
-   
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
+    // @formatter:off
+     @PostConstruct
+     public void post(){
+         discoveryClient.getInstances("restaurant-service").
+         forEach((ServiceInstance serviceInstance) -> {
+         System.out.println(new StringBuilder("Instance -->")
+                 .append(serviceInstance.getServiceId())
+                 .append("\nServer: ")
+                 .append(serviceInstance.getHost())
+                 .append(":")
+                 .append(serviceInstance.getPort())
+                 .append("\nURI: ")
+                 .append(serviceInstance.getUri())
+                 .append("\n\n\n"));
+         });
+    }
+    // @formatter:on
 }

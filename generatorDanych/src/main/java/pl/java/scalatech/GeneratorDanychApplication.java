@@ -12,6 +12,8 @@ import io.hawt.web.AuthenticationFilter;
 @SpringBootApplication
 @EnableHawtio
 @EnableDiscoveryClient
+//@EnableTurbineStream
+//@EnableHystrix
 public class GeneratorDanychApplication {
 
 	public static void main(String[] args) {

@@ -1,0 +1,38 @@
+<configuration scan="true" scanperiod="5 seconds">
+   <property scope="context" name="pattern_stdout"
+        value="%highlight(%.-5level)|%green(%date{yyyy-MM-dd HH:mm:ss.SSS})|%boldMagenta([%thread])|%yellow(%logger{70}:%boldYellow(%line)) - %msg%n%red(%rEx)" />
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>oauth2Auth.log</file>
+        <encoder>
+            <pattern>[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - [requestID: %X{requestID}] %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>${pattern_stdout}</pattern>
+            <pattern></pattern>
+        </encoder>
+    </appender>
+    
+   
+    
+      <logger name="pl.java.scalatech" level="info" additivity="false">
+        <appender-ref ref="console" />
+       </logger>
+    
+    <logger name="org.springframework" level="info" />
+    <logger name="org.springframework.security" level="info" />
+    <logger name ="org.springframework.security.web.session" level="debug"/>
+    <logger name ="org.springframework.security.core.session.SessionRegistryImpl" level="debug"/>
+    <logger name ="org.springframework.web.filter" level="trace"/>
+    <logger name ="org.springframework.security" level="info"/>
+    <logger name ="org.springframework.security.oauth2" level="debug"/>
+     
+    <logger name="org.springframework.data" level="info" />
+    <root level="INFO">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

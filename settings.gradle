@@ -6,7 +6,10 @@ include ":ConfigServer",
         ":EurekaClient2",
         ":zuul",
         ":generatorDanych",
-        ":DashboardHystrix"
+        ":DashboardHystrix",
+        ":Turbine",
+        ":AuthGateway",
+        ":AuthResource"
            
 
 rootProject.name = 'cloudPoc'

@@ -19,6 +19,7 @@ import pl.java.scalatech.components.RandomConfig;
 @EnableDiscoveryClient
 @EnableJpaRepositories
 @EnableCircuitBreaker
+//@EnableTurbineStream
 // @formatter:off
 @ComponentScans(
         value={
