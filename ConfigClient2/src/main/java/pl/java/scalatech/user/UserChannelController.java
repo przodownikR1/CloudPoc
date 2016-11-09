@@ -17,7 +17,7 @@ import pl.java.scalatech.user.domain.User;
 public class UserChannelController {
 
     
-    private MessageChannel output;
+    private final MessageChannel output;
     
      public UserChannelController(UserChannel channel) {
          this.output= channel.output();
@@ -29,4 +29,7 @@ public class UserChannelController {
         Message<User> msg = MessageBuilder.withPayload(user).build();
         this.output.send(msg);
     }
+    
+    
+    
 }
