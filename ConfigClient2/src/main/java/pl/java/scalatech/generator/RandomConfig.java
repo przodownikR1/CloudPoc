@@ -1,4 +1,4 @@
-package pl.java.scalatech.user.generator;
+package pl.java.scalatech.generator;
 
 import java.util.Random;
 

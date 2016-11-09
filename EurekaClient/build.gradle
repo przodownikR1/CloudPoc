@@ -9,7 +9,11 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
 	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
-	//compile('org.springframework.cloud:spring-cloud-sleuth-zipkin-stream')
+	compile('org.springframework.cloud:spring-cloud-sleuth-zipkin-stream')
+	
+	//compile("io.zipkin:zipkin-ui:1.39.0") 
+    
+	
 	
 	compile('org.springframework.cloud:spring-cloud-starter-zuul')
 	compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')

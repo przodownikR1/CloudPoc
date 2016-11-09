@@ -30,7 +30,19 @@
     <logger name ="org.springframework.web.filter" level="trace"/>
     <logger name ="org.springframework.security" level="info"/>
     <logger name ="org.springframework.security.oauth2" level="debug"/>
-     
+    <!-- 
+    
+    logging.level.org.springframework.security.oauth2=DEBUG
+    logging.level.org.springframework.security.oauth2.config.annotation.web.configurers.FrameworkEndpointHandlerMapping=INFO
+    logging.level.org.springframework.security.oauth2.provider.client.ClientCredentialsTokenGranter=DEBUG
+    logging.level.org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter=DEBUG
+    logging.level.org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter=DEBUG
+    logging.level.org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter=DEBUG
+    logging.level.org.springframework.security.oauth2.provider.approval.ApprovalStoreUserApprovalHandler=DEBUG
+    logging.level.org.springframework.security.oauth2.provider.endpoint.TokenEndpoint=INFO
+    logging.level.org.springframework.security.oauth2.provider.approval.AuthorizationEndpoint=INFO
+    
+     --> 
     <logger name="org.springframework.data" level="info" />
     <root level="INFO">
         <appender-ref ref="console"/>

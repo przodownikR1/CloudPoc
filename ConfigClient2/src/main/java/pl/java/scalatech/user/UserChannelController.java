@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.user.domain.User;
 
-@RestController
+//@RestController
 @Slf4j
 @RequestMapping("/api/user/channel")
 public class UserChannelController {
-
-    
-    private final MessageChannel output;
+   
+     private final MessageChannel output;
     
      public UserChannelController(UserChannel channel) {
          this.output= channel.output();
-        
     }
     
     @RequestMapping(method=RequestMethod.POST,value="/")
@@ -29,7 +27,5 @@ public class UserChannelController {
         Message<User> msg = MessageBuilder.withPayload(user).build();
         this.output.send(msg);
     }
-    
-    
     
 }

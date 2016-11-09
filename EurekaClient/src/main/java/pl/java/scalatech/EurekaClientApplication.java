@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.system.ApplicationPidFileWriter;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,12 +22,19 @@ import lombok.extern.slf4j.Slf4j;
 @EnableZuulProxy
 @EnableEurekaClient
 @EnableDiscoveryClient
+@EnableZipkinStreamServer
 @SpringBootApplication
 @Slf4j
 public class EurekaClientApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EurekaClientApplication.class, args);
+      springPIDAppRun(args, EurekaClientApplication.class);
+    }
+    
+    private static void springPIDAppRun(String[] args,Class<?> clazz) {
+        SpringApplication springApplication = new SpringApplication(clazz);
+        springApplication.addListeners(new ApplicationPidFileWriter());
+        springApplication.run(args);
     }
 
     @LoadBalanced

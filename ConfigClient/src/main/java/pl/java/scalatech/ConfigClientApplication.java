@@ -4,48 +4,55 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.boot.system.ApplicationPidFileWriter;
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.components.Generator;
 import pl.java.scalatech.components.RandomConfig;
-import pl.java.scalatech.user.web.UserChannel;
-
+import pl.java.scalatech.user.message.UserProcessor;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableJpaRepositories
 @EnableCircuitBreaker
-//@EnableTurbineStream
+// @EnableTurbineStream
 // @formatter:off
 @ComponentScans(
         value={
                 @ComponentScan(basePackages="pl.java.scalatech.card"),
                 @ComponentScan(basePackages="pl.java.scalatech.user"),        
                 @ComponentScan(basePackageClasses=RandomConfig.class),
-                @ComponentScan(basePackageClasses=Generator.class)
+                @ComponentScan(basePackageClasses=Generator.class),
+                @ComponentScan(basePackageClasses=UserProcessor.class)
                 })
 // @formatter:on
 @Slf4j
-@EnableBinding(UserChannel.class)
+@EnableBinding(Sink.class)
 public class ConfigClientApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConfigClientApplication.class, args);
+        springPIDAppRun(args, ConfigClientApplication.class);
     }
-    
+    private static void springPIDAppRun(String[] args,Class<?> clazz) {
+        SpringApplication springApplication = new SpringApplication(clazz);
+        springApplication.addListeners(new ApplicationPidFileWriter());
+        springApplication.run(args);
+    }
     @Bean
-    RestTemplate restTemplate(){
+    RestTemplate restTemplate() {
         return new RestTemplate();
     }
-   
 
-           
+   /* @Bean
+    AlwaysSampler alwaysSampler() {
+        return new AlwaysSampler();
+    }
+*/
 }
-
-

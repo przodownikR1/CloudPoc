@@ -34,7 +34,7 @@ public class Generator implements CommandLineRunner {
         for (int j = 0; j < random.nextInt(3); j++) {
             cards.add(cardGenerator.generateSingleCard());
         }
-        log.info("card count : {}",cards.size());
+       log.debug("card count : {}",cards.size());
         return cards;
     }
 

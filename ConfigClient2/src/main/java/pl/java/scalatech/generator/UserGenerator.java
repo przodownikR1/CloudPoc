@@ -1,4 +1,4 @@
-package pl.java.scalatech.user.generator;
+package pl.java.scalatech.generator;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -27,7 +27,6 @@ public class UserGenerator {
         this.random = random;
         faker = new Faker();
         positions = Position.values();
-
     }
 
     // @formatter:off
