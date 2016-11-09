@@ -5,3 +5,4 @@ gradlew
 gradlew.bat
 *.log
 gc.log.0.current
+application.pid
