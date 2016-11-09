@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.components.Generator;
 import pl.java.scalatech.components.RandomConfig;
+import pl.java.scalatech.user.web.UserChannel;
 
 
 @SpringBootApplication
@@ -30,6 +32,7 @@ import pl.java.scalatech.components.RandomConfig;
                 })
 // @formatter:on
 @Slf4j
+@EnableBinding(UserChannel.class)
 public class ConfigClientApplication {
 
     public static void main(String[] args) {
@@ -44,3 +47,5 @@ public class ConfigClientApplication {
 
            
 }
+
+
