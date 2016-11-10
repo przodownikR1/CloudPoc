@@ -1,4 +1,4 @@
-package pl.java.scalatech.user.domain;
+package pl.java.scalatech.card.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

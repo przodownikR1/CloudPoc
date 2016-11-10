@@ -17,22 +17,20 @@ import pl.java.scalatech.user.repo.UserRepo;
 @MessageEndpoint
 @Slf4j
 public class UserProcessor {
-  
-   
-    
-    private final UserRepo userRepo;
-    private final MetricRegistry metricRegistry;
-    
-    public UserProcessor(UserRepo userRepo,MetricRegistry metricRegistry) {
-        this.metricRegistry = metricRegistry;
-        this.userRepo = userRepo;
-        metricRegistry.register("onNew",  (Gauge<Integer>) () -> 1);
-    }
 
-    @ServiceActivator(inputChannel = INPUT)    
-    @Timed(name="onNewUserTimed")
+    private final UserRepo userRepo;
+
+    public UserProcessor(UserRepo userRepo, MetricRegistry metricRegistry) {
+        this.userRepo = userRepo;
+        metricRegistry.register("onNew", (Gauge<Integer>) () -> 1);
+    }
+    //@StreamListener
+    @ServiceActivator(inputChannel = INPUT)
+    @Timed(name = "onNewUserTimed")
     public void onNew(Message<User> msg) {
         log.info("received <==== {}", msg.getPayload());
-        userRepo.save(msg.getPayload());        
+        userRepo.save(msg.getPayload());
     }
+    
+    
 }

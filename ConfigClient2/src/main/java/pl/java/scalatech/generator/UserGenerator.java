@@ -10,7 +10,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.github.javafaker.Faker;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.java.scalatech.user.domain.Card;
+import pl.java.scalatech.card.domain.Card;
 import pl.java.scalatech.user.domain.Position;
 import pl.java.scalatech.user.domain.User;
 

@@ -9,7 +9,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
-@Configuration
+//@Configuration
 public class MessageConfig {
     @Bean
     public MessageChannel requestGetProcessorChannel() {

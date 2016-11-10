@@ -1,8 +1,9 @@
 package pl.java.scalatech.user;
 
+import static org.springframework.cloud.stream.messaging.Source.OUTPUT;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.Output;
-import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.generator.Generator;
 import pl.java.scalatech.user.domain.User;
-import static org.springframework.cloud.stream.messaging.Source.OUTPUT;
 
 @Component
 @Slf4j
@@ -34,7 +34,6 @@ public class UserMessageGenerator {
 
     @Scheduled(fixedDelay = 10000)
     public void replenishUserStore() {
-
         Message<User> msg = MessageBuilder.withPayload(generator.generateUser()).build();
         log.info("send === > {}", msg.getPayload());
         this.output.send(msg);

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.java.scalatech.user.domain.Card;
+import pl.java.scalatech.card.domain.Card;
 import pl.java.scalatech.user.domain.User;
 
 @Configuration

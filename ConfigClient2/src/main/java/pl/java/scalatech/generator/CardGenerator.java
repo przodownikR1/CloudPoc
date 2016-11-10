@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import com.codahale.metrics.annotation.Timed;
 import com.github.javafaker.Faker;
 
-import pl.java.scalatech.user.domain.Card;
-import pl.java.scalatech.user.domain.Currency;
+import pl.java.scalatech.card.domain.Card;
+import pl.java.scalatech.card.domain.Currency;
 @Component
 //@Profile("populate")
 public class CardGenerator {
