@@ -14,6 +14,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.codahale.metrics.annotation.Counted;
 import com.codahale.metrics.annotation.ExceptionMetered;
@@ -42,6 +44,9 @@ public class UserController extends GenericController<User> {
 
     private final UserRepo userRepo;
 
+    @Autowired
+    private RestTemplate restTemplate;
+    
     @Autowired
     private UserResourceAssembler userResourceAssembler;
 
@@ -80,7 +85,10 @@ public class UserController extends GenericController<User> {
     @ExceptionMetered(name = "get-userId-exception-meter")
     @RequestMapping(value = "/{userId}",method=RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public UserResource getUser(@PathVariable("userId") Long userId) {
-        log.info("+++++++++++++++++++++++++++++ userID");
+        
+        
+       // ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("http://search-app/role", String.class);
+        //log.info("+++++++++++++++++++++++++++++ userID role from simple-app : {} ",responseEntity.getBody());
         return Optional.ofNullable(userRepo.findOne(userId)).map(t -> new UserResource(t))
                 .orElseThrow(() -> new IllegalArgumentException("resource not found"));
 

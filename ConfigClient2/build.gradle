@@ -12,6 +12,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok')
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
     compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
     compile("org.springframework.cloud:spring-cloud-starter-bus-amqp")
     compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
