@@ -16,9 +16,9 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
     compile("org.springframework.cloud:spring-cloud-starter-bus-amqp")
     compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
-        compile group: 'com.github.javafaker', name: 'javafaker', version: '0.10'
+   
         
-         compile group: 'io.dropwizard.metrics', name: 'metrics-core', version: '3.1.2'
+    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version: '3.1.2'
     compile group: 'io.dropwizard.metrics', name: 'metrics-graphite', version: '3.1.2'
     compile group: 'io.dropwizard.metrics', name: 'metrics-jvm', version: '3.1.2'
     compile group: 'io.dropwizard.metrics', name: 'metrics-healthchecks', version: '3.1.2'
