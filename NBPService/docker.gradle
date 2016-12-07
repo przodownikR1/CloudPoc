@@ -1,0 +1,17 @@
+apply plugin: 'docker'
+
+group = 'scalatech'
+
+
+task buildDocker(type: Docker, dependsOn: assemble) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+    copy {
+      from jar
+      into "${buildDir}/docker"
+    }
+  }
+
+ }

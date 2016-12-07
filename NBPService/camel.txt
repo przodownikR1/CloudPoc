@@ -1,0 +1,28 @@
+activator : @Handle = spring bean 
+
+mulicast : rownolegle
+
+file 
+
+log
+
+bean
+
+
+timer
+
+setBody 
+
+setHeader
+
+header
+
+direct
+
+seda
+
+recepientList
+
+stream 
+
+http
